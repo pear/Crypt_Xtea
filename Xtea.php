@@ -343,7 +343,7 @@ class Crypt_Xtea extends PEAR
     function _encipherLong($y, $z, &$w, &$k)
     {
         $sum    = (integer) 0;
-        $delta  = (integer) 0x9E3779B9;
+        $delta  = 0x9E3779B9;
         $n      = (integer) $this->n_iter;
 
         while ($n-- > 0) {
@@ -378,8 +378,8 @@ class Crypt_Xtea extends PEAR
     function _decipherLong($y, $z, &$w, &$k)
     {
         // sum = delta<<5, in general sum = delta * n
-        $sum    = (integer) 0xC6EF3720;
-        $delta  = (integer) 0x9E3779B9;
+        $sum    = 0xC6EF3720;
+        $delta  = 0x9E3779B9;
         $n      = (integer) $this->n_iter;
 
         while ($n-- > 0) {
