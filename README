@@ -6,6 +6,7 @@ The Crypt_Xtea package is a simple class to enable XTEA encryption on
 sites where e.g. the mcrypt module is not installed.
 The original C code on which this class is based was found at
 from http://vader.brad.ac.uk/tea/source.shtml#new_ansi
+Currently to be found at: http://www.simonshepherd.supanet.com/source.shtml#new_ansi
 
 Use of the class is fairly straightforward:
 

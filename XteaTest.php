@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------+
 // | PHP version 4.0                                                      |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 2002 The PHP Group                                     |
+// | Copyright (c) 2002-2004 The PHP Group                                |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 2.02 of the PHP license,      |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -26,6 +26,7 @@ require_once 'PHPUnit.php';
 
 
 /**
+ *  Tester class for Xtea class.
  *  Tester class for Xtea class.
  *
  *  @package    Crypt_Xtea_Test

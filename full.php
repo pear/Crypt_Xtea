@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------+
 // | PHP version 4.0                                                      |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 2002-2004 The PHP Group                                |
+// | Copyright (c) 2004 The PHP Group                                     |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 2.02 of the PHP license,      |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -20,43 +20,47 @@
 // $Id$
 
 /**
- *	Module test using PHPUnit.
- *	Module test using PHPUnit.
+ *	Test a range of different characters and sizes.
+ *	Test a range of different characters and sizes.
  *
  *	@package		Crypt_Xtea_Test
  *	@modulegroup	Crypt_Xtea_Test
- *	@module			tester
+ *	@module			full
  *	@access			public
  *
  *	@version		$Revision$
- *	@since			2002/Aug/28
+ *	@since			2004/Oct/04
  *	@author			Jeroen Derks <jeroen@derks.it>
  */
 
-// check parameter
-if (IsSet($_SERVER['argc']) && 1 < $_SERVER['argc'] && $_SERVER['argv'][1])
+/** Crypt_Xtea class */
+require_once 'Crypt/Xtea.php';
+
+$obj = new Crypt_Xtea();
+$msg = $argv[1];
+
+for ($i = 30; $i <= 34; ++$i)
 {
-	// check for xdebug presence to enable profiling
-	if (extension_loaded('xdebug'))
-	{
-		xdebug_start_profiling();
-		$profiling = true;
-		echo "Profiling enabled.\n";
-		flush();
-	}
+    $key = '';
+    for ($n = $i; $n < $i + $i; ++$n)
+        $key .= chr($n);
+
+    for ($j = 32; $j <= 64; ++$j)
+    {
+        $msg = '';
+        for ($n = $j; $n < $j + $j; ++$n)
+            $msg .= chr($n);
+
+        $result	= $obj->encrypt($msg, $key);
+
+        $tmp = join('', unpack('H*', $result));
+
+        // output result
+        printf("%3d.%3d: %s\n", $i, $j, $tmp);
+
+        $result = $obj->decrypt($result, $key);
+        if ($result != $msg)
+            die("ERROR: decryption failed\n");
+    }
 }
-
-/** XteaTest class */
-require_once 'XteaTest.php';
-
- 
-$suite = new PHPUnit_TestSuite('Crypt_XteaTest');
-$result = PHPUnit::run($suite);
-echo $result->toString();
-
-// check for profiling to show results
-if ($profiling)
-	xdebug_dump_function_profile(XDEBUG_PROFILER_FS_SUM);
-else
-	Crypt_XteaTest::getTimings();
 ?>

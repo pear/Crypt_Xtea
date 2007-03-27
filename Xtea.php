@@ -4,7 +4,7 @@
 // +----------------------------------------------------------------------+
 // | PHP version 4.0                                                      |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 2002 The PHP Group                                     |
+// | Copyright (c) 2002-2004 The PHP Group                                |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 2.02 of the PHP license,      |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -17,6 +17,8 @@
 // | Authors: Jeroen Derks <jeroen@derks.it>                              |
 // +----------------------------------------------------------------------+
 // | Original code: http://vader.brad.ac.uk/tea/source.shtml#new_ansi     |
+// | Currently to be found at:                                            |
+// | http://www.simonshepherd.supanet.com/source.shtml#new_ansi           |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -27,6 +29,7 @@ require_once 'PEAR.php';
 
 /**
  *  Class that implements the xTEA encryption algorithm.
+ *  Class that implements the xTEA encryption algorithm.<br />
  *  This enables you to encrypt data without requiring mcrypt.
  *
  *  From the C source:
@@ -118,7 +121,8 @@ require_once 'PEAR.php';
  *  @author     Jeroen Derks <jeroen@derks.it>
  */
 
-class Crypt_Xtea extends PEAR {
+class Crypt_Xtea extends PEAR
+{
 
     /**
      *  Number of iterations.
@@ -138,8 +142,9 @@ class Crypt_Xtea extends PEAR {
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            setIter()
      */
-    function Crypt_Xtea() {
-        $this->setIter( 32 );
+    function Crypt_Xtea()
+    {
+        $this->setIter(32);
     }
 
     // }}}
@@ -154,7 +159,8 @@ class Crypt_Xtea extends PEAR {
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            $n_iter, getIter()
      */
-    function setIter( $n_iter ) {
+    function setIter($n_iter)
+    {
         $this->n_iter = $n_iter;
     }
 
@@ -170,7 +176,8 @@ class Crypt_Xtea extends PEAR {
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            $n_iter, setIter()
      */
-    function getIter() {
+    function getIter()
+    {
         return $this->n_iter;
     }
 
@@ -189,7 +196,8 @@ class Crypt_Xtea extends PEAR {
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            decrypt(), _encipherLong(), _resize(), _str2long()
      */
-    function encrypt($data, $key) {
+    function encrypt($data, $key)
+    {
         // resize data to 32 bits (4 bytes)
         $n = $this->_resize($data, 4);
 
@@ -212,9 +220,9 @@ class Crypt_Xtea extends PEAR {
 
         // encrypt the long data with the key
         $enc_data   = '';
-        $w          = array( 0, 0 );
+        $w          = array(0, 0);
         $j          = 0;
-        $k          = array( 0, 0, 0, 0 );
+        $k          = array(0, 0, 0, 0);
         for ($i = 0; $i < $n_data_long; ++$i) {
             // get next key part of 128 bits
             if ($j + 4 <= $n_key_long) {
@@ -255,7 +263,8 @@ class Crypt_Xtea extends PEAR {
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            _encipherLong(), encrypt(), _resize(), _str2long()
      */
-    function decrypt($enc_data, $key) {
+    function decrypt($enc_data, $key)
+    {
         // convert data to long
         $n_enc_data_long = $this->_str2long(0, $enc_data, $enc_data_long);
 
@@ -267,10 +276,10 @@ class Crypt_Xtea extends PEAR {
 
         // decrypt the long data with the key
         $data   = '';
-        $w      = array( 0, 0 );
+        $w      = array(0, 0);
         $j      = 0;
         $len    = 0;
-        $k      = array( 0, 0, 0, 0 );
+        $k      = array(0, 0, 0, 0);
         $pos    = 0;
 
         for ($i = 0; $i < $n_enc_data_long; $i += 2) {
@@ -296,7 +305,7 @@ class Crypt_Xtea extends PEAR {
                 if (4 <= $len) {
                     $data .= $this->_long2str($w[1]);
                 } else {
-                    $data .= substr( $this->_long2str($w[1]), 0, $len % 4 );
+                    $data .= substr($this->_long2str($w[1]), 0, $len % 4);
                 }
             } else {
                 $pos = ($i - 1) * 4;
@@ -306,10 +315,10 @@ class Crypt_Xtea extends PEAR {
                     if ($pos + 8 <= $len) {
                         $data .= $this->_long2str($w[1]);
                     } elseif ($pos + 4 < $len) {
-                        $data .= substr( $this->_long2str($w[1]), 0, $len % 4 );
+                        $data .= substr($this->_long2str($w[1]), 0, $len % 4);
                     }
                 } else {
-                    $data .= substr( $this->_long2str($w[0]), 0, $len % 4 );
+                    $data .= substr($this->_long2str($w[0]), 0, $len % 4);
                 }
             }
         }
@@ -331,7 +340,8 @@ class Crypt_Xtea extends PEAR {
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            $n_iter, _add(), _rshift(), _decipherLong()
      */
-    function _encipherLong($y, $z, &$w, &$k) {
+    function _encipherLong($y, $z, &$w, &$k)
+    {
         $sum    = (integer) 0;
         $delta  = (integer) 0x9E3779B9;
         $n      = (integer) $this->n_iter;
@@ -365,7 +375,8 @@ class Crypt_Xtea extends PEAR {
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            $n_iter, _add(), _rshift(), _decipherLong()
      */
-    function _decipherLong($y, $z, &$w, &$k) {
+    function _decipherLong($y, $z, &$w, &$k)
+    {
         // sum = delta<<5, in general sum = delta * n
         $sum    = (integer) 0xC6EF3720;
         $delta  = (integer) 0x9E3779B9;
@@ -400,7 +411,8 @@ class Crypt_Xtea extends PEAR {
      *  @access private
      *  @author         Jeroen Derks <jeroen@derks.it>
      */
-    function _resize(&$data, $size, $nonull = false) {
+    function _resize(&$data, $size, $nonull = false)
+    {
         $n      = strlen($data);
         $nmod   = $n % $size;
 
@@ -431,7 +443,8 @@ class Crypt_Xtea extends PEAR {
      *  @access private
      *  @author         Jeroen Derks <jeroen@derks.it>
      */
-    function _hex2bin($str) {
+    function _hex2bin($str)
+    {
         $len = strlen($str);
         return pack('H' . $len, $str);
     }
@@ -451,7 +464,8 @@ class Crypt_Xtea extends PEAR {
      *  @access private
      *  @author         Jeroen Derks <jeroen@derks.it>
      */
-    function _str2long($start, &$data, &$data_long) {
+    function _str2long($start, &$data, &$data_long)
+    {
         $n = strlen($data);
 
         $tmp    = unpack('N*', $data);
@@ -476,8 +490,9 @@ class Crypt_Xtea extends PEAR {
      *  @access private
      *  @author         Jeroen Derks <jeroen@derks.it>
      */
-    function _long2str($l) {
-        return pack( 'N', $l );
+    function _long2str($l)
+    {
+        return pack('N', $l);
     }
 
     // }}}
@@ -490,12 +505,27 @@ class Crypt_Xtea extends PEAR {
      *  @since          2004/Sep/06
      *  @author         Jeroen Derks <jeroen@derks.it>
      */
-    function _rshift($integer, $n) {
-        if (0 > (integer) $integer) {
-            $integer = $integer >> $n;              // shift
-            $integer &= ~(0x80000000 >> ($n - 1));  // remove shifted-in sign bits
+    function _rshift($integer, $n)
+    {
+        // convert to 32 bits
+        if (0xffffffff < $integer || -0xffffffff > $integer) {
+            $integer = fmod($integer, 0xffffffff + 1);
+        }
+
+        // convert to unsigned integer
+        if (0x7fffffff < $integer) {
+            $integer -= 0xffffffff + 1.0;
+        } elseif (-0x80000000 > $integer) {
+            $integer += 0xffffffff + 1.0;
+        }
+
+        // do right shift
+        if (0 > $integer) {
+            $integer &= 0x7fffffff;                     // remove sign bit before shift
+            $integer >>= $n;                            // right shift
+            $integer |= 1 << (31 - $n);                 // set shifted sign bit
         } else {
-            $integer >>= $n;                         // use normal shift
+            $integer >>= $n;                            // use normal right shift
         }
 
         return $integer;
@@ -511,24 +541,32 @@ class Crypt_Xtea extends PEAR {
      *  @since          2004/Sep/06
      *  @author         Jeroen Derks <jeroen@derks.it>
      */
-    function _add($i1, $i2) {
+    function _add($i1, $i2)
+    {
         $result = 0.0;
 
         foreach (func_get_args() as $value) {
             // remove sign if necessary
             if (0.0 > $value) {
-                $value += 0xffffffff + 1.0;
+                $value -= 1.0 + 0xffffffff;
             }
 
             $result += $value;
         }
 
-        // convert to 32 bit
-        if (0xffffffff < $result) {
+        // convert to 32 bits
+        if (0xffffffff < $result || -0xffffffff > $result) {
             $result = fmod($result, 0xffffffff + 1);
         }
 
-        return (integer) $result;
+        // convert to signed integer
+        if (0x7fffffff < $result) {
+            $result -= 0xffffffff + 1.0;
+        } elseif (-0x80000000 > $result) {
+            $result += 0xffffffff + 1.0;
+        }
+
+        return $result;
     }
 
     // }}}
