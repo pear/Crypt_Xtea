@@ -19,15 +19,15 @@ profile:		profiled.dummy
 profiled.dummy:	$(SCRIPTS)
 				nice -20 $(PHP_CMD) tester.php 1 > profiled.out
 
-encrypt:		xtea.php
-				@echo -n "Give text to encrypt: "; read line; $(PHP_CMD) xtea.php -e $(KEY) "$$line"; echo
+encrypt:		xteacmd.php
+				@echo -n "Give text to encrypt: "; read line; $(PHP_CMD) xteacmd.php -e $(KEY) "$$line"; echo
 
-decrypt:		xtea.php
-				@echo -n "Give text to decrypt: "; read line; $(PHP_CMD) xtea.php -d $(KEY) "$$line"; echo
+decrypt:		xteacmd.php
+				@echo -n "Give text to decrypt: "; read line; $(PHP_CMD) xteacmd.php -d $(KEY) "$$line"; echo
 
-simple:			xtea.php
-				enc=`$(PHP_CMD) xtea.php -e $(KEY) "$(MSG)"`; echo encrypted="$$enc";	\
-				dec=`$(PHP_CMD) xtea.php -d $(KEY) "$$enc"`; echo "decrypted=$$dec"
+simple:			xteacmd.php
+				enc=`$(PHP_CMD) xteacmd.php -e $(KEY) "$(MSG)"`; echo encrypted="$$enc";	\
+				dec=`$(PHP_CMD) xteacmd.php -d $(KEY) "$$enc"`; echo "decrypted=$$dec"
 
 full:
 				$(PHP_CMD) full.php > x
