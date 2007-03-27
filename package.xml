@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "../package.dtd">
+<!-- do not use the "Type" attribute here, that one is only for
+     generated package.xml files -->
 <package version="1.0">
   <name>Crypt_Xtea</name>
-  <summary>A class that implements the Tiny Encryption Algorithm (TEA) (New Variant).</summary>
-  <description>A class that implements the Tiny Encryption Algorithm (TEA) (New Variant).
+  <summary>
+    A class that implements the Tiny Encryption Algorithm (TEA) (New Variant).
+  </summary>
+  <description>
+    A class that implements the Tiny Encryption Algorithm (TEA) (New Variant).
     This class does not depend on mcrypt.
-	Encryption is relatively fast, decryption relatively slow.
-    Original code from http://vader.brad.ac.uk/tea/source.shtml#new_ansi</description>
+	Since the latest fix handles properly dealing with unsigned integers,
+	which where solved by introducing new functions _rshift(), _add(), the
+	speed of the encryption and decryption has radically dropped. Do not use
+	for large amounts of data.
+    Original code from http://vader.brad.ac.uk/tea/source.shtml#new_ansi
+  </description>
+  <license>PHP 2.02</license>
   <maintainers>
     <maintainer>
       <user>jderks</user>
@@ -15,14 +26,22 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>1.0</version>
-    <date>2002-08-30</date>
-    <license>PHP 2.02</license>
-    <state>stable</state>
-    <notes>This is the first release.</notes>
+    <version>1.1.0RC1</version>
+    <state>beta</state>
+    <date>2004-09-08</date>
+    <notes>
+        Updated to fix unsigned/signed integer calculations.
+		NB: Encryption results from the previous version are not
+		compatible with this version, so please check your code.
+    </notes>
     <filelist>
-      <file role="php" baseinstalldir="Crypt" md5sum="fcc3a545f41c4e4133559688c2c09c89" name="Xtea.php"/>
-      <file role="php" baseinstalldir="Crypt" md5sum="46cfa3e565c965eab99c9634b037cef7" name="XteaTest.php"/>
+	  <dir name="/" baseinstalldir="Crypt">
+        <file role="php">Xtea.php</file>
+      </dir>
+      <file role="doc">README</file>
+      <file role="test">Makefile</file>
+      <file role="test">XteaTest.php</file>
+      <file role="test">tester.php</file>
     </filelist>
   </release>
 </package>
