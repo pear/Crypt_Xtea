@@ -1,0 +1,25 @@
+{
+    "authors": [
+        {
+            "email": "jeroen@derks.it",
+            "name": "Jeroen Derks",
+            "role": "Lead"
+        }
+    ],
+    "autoload": {
+        "classmap": [
+            "./"
+        ]
+    },
+    "description": "More info available on: http://pear.php.net/package/Crypt_Xtea",
+    "license": "PHP 2.02",
+    "name": "pear/crypt_xtea",
+    "support": {
+        "issues": "http:///bugs/search.php?cmd=display&package_name[]=Crypt_Xtea",
+        "source": "https://github.com/pear/Crypt_Xtea"
+    },
+    "type": "library",
+    "require-dev": {
+        "phpunit/phpunit": "*"
+    }
+}
