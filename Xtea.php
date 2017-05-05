@@ -133,7 +133,7 @@ class Crypt_Xtea extends PEAR
     var $n_iter;
 
 
-    // {{{ Crypt_Xtea()
+    // {{{ Crypt_Xtea:__construct()
 
     /**
      *  Constructor, sets the number of iterations.
@@ -142,7 +142,7 @@ class Crypt_Xtea extends PEAR
      *  @author         Jeroen Derks <jeroen@derks.it>
      *  @see            setIter()
      */
-    function Crypt_Xtea()
+    function __construct()
     {
         $this->setIter(32);
     }
