@@ -434,19 +434,12 @@ class Crypt_Xtea extends PEAR
     // {{{ _hex2bin()
 
     /**
-     *  Convert a hexadecimal string to a binary string (e.g. convert "616263" to "abc").
-     *
-     *  @param  string  $str    Hexadecimal string to convert to binary string.
-     *
-     *  @return string          Binary string.
-     *
-     *  @access private
-     *  @author         Jeroen Derks <jeroen@derks.it>
+     * deprecated function, use PHP's native hex2bin() instead.
      */
     function _hex2bin($str)
     {
-        $len = strlen($str);
-        return pack('H' . $len, $str);
+        trigger_error( "_hex2bin is deprecated, use php's native hex2bin() instead.", E_USER_DEPRECATED);
+        return hex2bin($str);
     }
 
     // }}}
